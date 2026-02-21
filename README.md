@@ -24,7 +24,7 @@ No — the check is imperceptible. `[ -f ~/.claude/sounds-paused ]` is a simple 
 
 ### 1. Configure Claude Code hooks
 
-Add the following to `~/.claude/settings.json`, updating paths to match your sounds directory:
+Add the following to `~/.claude/settings.json`, updating paths to match your sounds directory. If you want the folder hidden from `ls`, prefix its name with a dot (e.g. `.sounds`):
 
 ```json
 {
