@@ -16,6 +16,10 @@ Each click shows a self-dismissing alert:
 
 The app creates or removes a flag file at `~/.claude/sounds-paused`. The Claude Code hooks check for this file before playing any audio.
 
+## Does the file check add any delay?
+
+No — the check is imperceptible. `[ -f ~/.claude/sounds-paused ]` is a simple filesystem existence check that takes microseconds. `afplay` itself has 50–100ms of startup overhead before any sound is heard, which completely dwarfs the file check. The entire hook also runs in the background (`&`), so it never blocks Claude Code regardless.
+
 ## Setup
 
 ### 1. Configure Claude Code hooks
