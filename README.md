@@ -78,28 +78,30 @@ This creates `ClaudeSounds.app` on your Desktop. You can drag it into your Dock 
 
 ### 3. Set a custom icon (optional)
 
-Convert your PNG to ICNS and replace the default icon inside the app bundle:
+Install [`fileicon`](https://github.com/mklement0/fileicon) via Homebrew, then convert your PNG to ICNS and apply it:
 
 ```bash
-# Create the iconset
-mkdir -p /tmp/claude_icon.iconset
-sips -z 16 16     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_16x16.png
-sips -z 32 32     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_16x16@2x.png
-sips -z 32 32     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_32x32.png
-sips -z 64 64     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_32x32@2x.png
-sips -z 128 128   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_128x128.png
-sips -z 256 256   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_128x128@2x.png
-sips -z 256 256   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_256x256.png
-sips -z 512 512   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_256x256@2x.png
-sips -z 512 512   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_512x512.png
-sips -z 1024 1024 /path/to/icon.png --out /tmp/claude_icon.iconset/icon_512x512@2x.png
+brew install fileicon
+```
 
-# Convert to ICNS and replace the app's icon
+```bash
+# Build the ICNS (run as one block to avoid timing issues)
+rm -rf /tmp/claude_icon.iconset /tmp/claude_icon.icns && \
+mkdir -p /tmp/claude_icon.iconset && \
+sips -z 16 16     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_16x16.png && \
+sips -z 32 32     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_16x16@2x.png && \
+sips -z 32 32     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_32x32.png && \
+sips -z 64 64     /path/to/icon.png --out /tmp/claude_icon.iconset/icon_32x32@2x.png && \
+sips -z 128 128   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_128x128.png && \
+sips -z 256 256   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_128x128@2x.png && \
+sips -z 256 256   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_256x256.png && \
+sips -z 512 512   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_256x256@2x.png && \
+sips -z 512 512   /path/to/icon.png --out /tmp/claude_icon.iconset/icon_512x512.png && \
+sips -z 1024 1024 /path/to/icon.png --out /tmp/claude_icon.iconset/icon_512x512@2x.png && \
 iconutil -c icns /tmp/claude_icon.iconset -o /tmp/claude_icon.icns
-cp /tmp/claude_icon.icns ~/Desktop/ClaudeSounds.app/Contents/Resources/applet.icns
 
-# Restart Finder to clear the icon cache
-killall Finder
+# Apply the icon
+fileicon set ~/Desktop/ClaudeSounds.app /tmp/claude_icon.icns
 ```
 
 ## Requirements
